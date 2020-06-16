@@ -9,12 +9,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
     
-    <RestoreProjectStyle>
-     PackageReference
-       </<RestoreProjectStyle>
-   
-
-   
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
