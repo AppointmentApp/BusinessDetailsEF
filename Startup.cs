@@ -11,14 +11,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+
 namespace BusinessDetailsEF
 {
     public class Startup
     {
+        public IConfigurationRoot Configurations{ get; set;}
+        public static string ConnectionString{get; private set; }
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            Configurations = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appSettings.json").Build();
+
+           
         }
 
         public IConfiguration Configuration { get; }
@@ -51,6 +56,7 @@ namespace BusinessDetailsEF
             {
                 endpoints.MapControllers();
             });
+            ConnectionString = Configurations["ConnectionStrings:DefaultConnection"];
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessDetailsEF.Adapter;
 using BusinessDetailsEF.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,31 +17,25 @@ namespace BusinessDetailsEF.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        private appointo146updateContext auc = new appointo146updateContext();
+        AppointmentsAdapter appAdapter = new AppointmentsAdapter();
+      
         [Produces("application/json")]
         [HttpGet("findall")]
         public async Task<IActionResult> findall() 
         {
             try
             {
-                var appointments = auc.Appointments.Select(p => new AppointmentsEntity()
-                {AappointmentId=p.appointmentId,
-                ABusiness_Id=p.Business_Id,
-                AName=p.Name,
-                Aaddress=p.address,
-                Adate1=p.date1,
-                AtimeSlot=p.timeSlot,
-                AContact=p.Contact,
-                Astatus=p.status
-                  //appointmentId=p.AappointmentId,
-                  //Business_Id=p.ABusiness_Id,
-                  // Name = p.AName,
-                  //  address= p.Aaddress,
-                  // date1 = p.Adate1,
-                  // timeSlot=p.AtimeSlot,
-                  // Contact=p.AContact,
-                  // status=p.Astatus
-                }).ToList();
+                var appointments = appAdapter.getallappointments();
+                //var appointments = auc.Appointments.Select(p => new AppointmentsEntity()
+                //{AappointmentId=p.appointmentId,
+                //ABusiness_Id=p.Business_Id,
+                //AName=p.Name,
+                //Aaddress=p.address,
+                //Adate1=p.date1,
+                //AtimeSlot=p.timeSlot,
+                //AContact=p.Contact,
+                //Astatus=p.status
+                //}).ToList();
                 return Ok(appointments);
             }
             catch 
@@ -55,16 +50,17 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var appointments = auc.Appointments.Where(p=>p.appointmentId==id).Select(p => new AppointmentsEntity()
-                {
+                var appointments = appAdapter.getallappointmentbyid(id);
+                //var appointments = auc.Appointments.Where(p=>p.appointmentId==id).Select(p => new AppointmentsEntity()
+                //{
 
-                    AName = p.Name,
-                    Aaddress = p.address,
-                    Adate1 = p.date1,
-                    AtimeSlot = p.timeSlot,
-                   AContact = p.Contact,
-                    Astatus = p.status
-                }).ToList();
+                //    AName = p.Name,
+                //    Aaddress = p.address,
+                //    Adate1 = p.date1,
+                //    AtimeSlot = p.timeSlot,
+                //   AContact = p.Contact,
+                //    Astatus = p.status
+                //}).ToList();
                 return Ok(appointments);
             }
             catch
@@ -79,17 +75,18 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var appoints = new Appointments()
-                {
-                    Name = appointments.AName,
-                    address = appointments.Aaddress,
-                    date1 = appointments.Adate1,
-                    timeSlot = appointments.AtimeSlot,
-                    Contact = appointments.AContact,
-                    status = appointments.Astatus
-                };
-                auc.Appointments.Add(appoints);
-                auc.SaveChanges();
+                var appoints = appAdapter.addappointments(appointments);
+                //var appoints = new Appointments()
+                //{
+                //    Name = appointments.AName,
+                //    address = appointments.Aaddress,
+                //    date1 = appointments.Adate1,
+                //    timeSlot = appointments.AtimeSlot,
+                //    Contact = appointments.AContact,
+                //    status = appointments.Astatus
+                //};
+                //auc.Appointments.Add(appoints);
+                //auc.SaveChanges();
                 return Ok(appoints);
             }
             catch
@@ -103,16 +100,18 @@ namespace BusinessDetailsEF.Controllers
         [HttpPut("updatestatus/{id}")]
         public async Task<IActionResult> updatestatus([FromBody] AppointmentsEntity appentity, int id)
         {
-            var ad = auc.Appointments.FirstOrDefault(item => item.appointmentId == id);
+           
+            //var ad = auc.Appointments.FirstOrDefault(item => item.appointmentId == id);
             try
             {
-                if (ad != null)
-                {
+                var ad = appAdapter.updatestatus(appentity, id);
+                //    if (ad != null)
+                //    {
 
-                    ad.status = appentity.Astatus;
-                }
-                auc.Appointments.Update(ad);
-                auc.SaveChanges();
+                //        ad.status = appentity.Astatus;
+                //    }
+                //    auc.Appointments.Update(ad);
+                //    auc.SaveChanges();
                 return Ok(ad);
             }
             catch 
@@ -128,9 +127,10 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var appointment = auc.Appointments.Find(id);
-                auc.Appointments.Remove(appointment);
-                auc.SaveChanges();
+                var appointment = appAdapter.deleteappointment(id);
+                //var appointment = auc.Appointments.Find(id);
+                //auc.Appointments.Remove(appointment);
+                //auc.SaveChanges();
                 return Ok(appointment);
             }
             catch
