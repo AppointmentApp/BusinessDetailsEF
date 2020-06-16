@@ -10,8 +10,16 @@ namespace BusinessDetailsEF.Service
     {
         private appointo146updateContext db = new appointo146updateContext();
 
+        public string Generateguid() 
+        {
+            var token = Guid.NewGuid().ToString();
+            //Guid guid = new Guid();
+            //var token = guid.ToString();
+            return token;
+        }
         public List<BusinessEntity> getall() 
         {
+            
             var business = db.BusinessDetails.Select(p => new BusinessEntity()
             {
                 bid = p.Business_Id,
@@ -44,8 +52,8 @@ namespace BusinessDetailsEF.Service
         {
             var business = new BusinessDetails()
             {
-                BusinessToken = businessEntity.btoken,
-                Business_Name = businessEntity.bname,
+                BusinessToken = Generateguid(),
+            Business_Name = businessEntity.bname,
                 Business_Type = businessEntity.btype,
                 Address = businessEntity.baddress,
                 Contact_Number = businessEntity.bcontactNumber,
