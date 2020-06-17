@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessDetailsEF.Adapter;
+using BusinessDetailsEF.Interfaces;
+using BusinessDetailsEF.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +34,10 @@ namespace BusinessDetailsEF
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IBusinessInterface, BusinessService>();
+            services.AddSingleton<IBusinessAdapterInterface, BusinessAdapter>();
+            services.AddSingleton<IAppointmentInterface, AppointmentsService>();
+            services.AddSingleton<IAppointmentsAdapterInterface, AppointmentsAdapter>();
             services.AddCors(options =>
             options.AddPolicy(name: MyAllowSpecificOrigins,
                 builder => { builder.WithOrigins("https://appointo.netlify.app", "http://appointo.netlify.app")

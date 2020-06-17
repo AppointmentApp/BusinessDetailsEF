@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BusinessDetailsEF.Adapter;
+using BusinessDetailsEF.Interfaces;
 using BusinessDetailsEF.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +10,21 @@ namespace BusinessDetailsEF.Controllers
     [ApiController]
     public class BusinessController : ControllerBase
     {
+       private IBusinessAdapterInterface _businessAdapter;
         //private appointo146updateContext db = new appointo146updateContext();
-        BusinessAdapter businessAdapter = new BusinessAdapter();
+        // BusinessAdapter _businessAdapter = new BusinessAdapter();
+       public  BusinessController(IBusinessAdapterInterface businessAdapter) 
+        {
+            _businessAdapter = businessAdapter;
+        }
         [Produces("application/json")]
         [HttpGet("findall")]
         public async Task<IActionResult> findall() 
         {
             try
             {
-                var business = businessAdapter.getallbusiness();
+                var business = _businessAdapter.getallbusiness();
                 return Ok(business);
-                
             }
             catch 
             {
@@ -33,7 +38,7 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var business = businessAdapter.getallbusinessbytoken(btoken);
+                var business = _businessAdapter.getallbusinessbytoken(btoken);
                 return Ok(business);
             }
             catch
@@ -49,7 +54,7 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var business = businessAdapter.addbusiness(businessEntity);
+                var business = _businessAdapter.addbusiness(businessEntity);
                 return Ok(business);
             }
             catch
@@ -65,7 +70,7 @@ namespace BusinessDetailsEF.Controllers
         { 
             try
             {
-                var bd = businessAdapter.updatebusiness(businessEntity,btoken);
+                var bd = _businessAdapter.updatebusiness(businessEntity,btoken);
              return Ok(bd);
             }
             catch 
@@ -79,7 +84,7 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var business = businessAdapter.deletebusiness(btoken);
+                var business = _businessAdapter.deletebusiness(btoken);
                 return Ok(business);
             }
             catch

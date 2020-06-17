@@ -1,4 +1,5 @@
-﻿using BusinessDetailsEF.Models;
+﻿using BusinessDetailsEF.Interfaces;
+using BusinessDetailsEF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BusinessDetailsEF.Service
 {
-    public class BusinessService
+    public class BusinessService:IBusinessInterface
     {
         private appointo146updateContext db = new appointo146updateContext();
-
+        public BusinessService() { }
         public string Generateguid() 
         {
             var token = Guid.NewGuid().ToString();
@@ -54,7 +55,7 @@ namespace BusinessDetailsEF.Service
             {
                 BusinessToken = Generateguid(),
             Business_Name = businessEntity.bname,
-                Business_Type = businessEntity.btype,
+                Business_Type = businessEntity.btype,   
                 Address = businessEntity.baddress,
                 Contact_Number = businessEntity.bcontactNumber,
                 City = businessEntity.bcity,

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BusinessDetailsEF.Adapter;
+using BusinessDetailsEF.Interfaces;
 using BusinessDetailsEF.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,15 +10,20 @@ namespace BusinessDetailsEF.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        AppointmentsAdapter appAdapter = new AppointmentsAdapter();
-      
+        private IAppointmentsAdapterInterface _appointmentAdapter;
+
+        public AppointmentController(IAppointmentsAdapterInterface appointmentAdapter)
+        {
+            _appointmentAdapter = appointmentAdapter;
+        }
+       
         [Produces("application/json")]
         [HttpGet("findall")]
         public async Task<IActionResult> findall() 
         {
             try
             {
-                var appointments = appAdapter.getallappointments();
+                var appointments = _appointmentAdapter.getallappointments();
           
                 return Ok(appointments);
             }
@@ -33,7 +39,7 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var appointments = appAdapter.getallappointmentbyid(id);
+                var appointments = _appointmentAdapter.getallappointmentbyid(id);
      
                 return Ok(appointments);
             }
@@ -49,7 +55,7 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var appoints = appAdapter.addappointments(appointments);
+                var appoints = _appointmentAdapter.addappointments(appointments);
               
                 return Ok(appoints);
             }
@@ -68,7 +74,7 @@ namespace BusinessDetailsEF.Controllers
             //var ad = auc.Appointments.FirstOrDefault(item => item.appointmentId == id);
             try
             {
-                var ad = appAdapter.updatestatus(appentity, id);
+                var ad = _appointmentAdapter.updatestatus(appentity, id);
      
                 return Ok(ad);
             }
@@ -85,7 +91,7 @@ namespace BusinessDetailsEF.Controllers
         {
             try
             {
-                var appointment = appAdapter.deleteappointment(id);
+                var appointment = _appointmentAdapter.deleteappointment(id);
                 
                 return Ok(appointment);
             }

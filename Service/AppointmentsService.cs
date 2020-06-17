@@ -1,4 +1,5 @@
-﻿using BusinessDetailsEF.Models;
+﻿using BusinessDetailsEF.Interfaces;
+using BusinessDetailsEF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace BusinessDetailsEF.Service
 {
-    public class AppointmentsService
+    public class AppointmentsService:IAppointmentInterface
     {
         private appointo146updateContext auc = new appointo146updateContext();
+        public AppointmentsService() { }
         public List<AppointmentsEntity> getall()
         {
             var appointments = auc.Appointments.Select(p => new AppointmentsEntity()
