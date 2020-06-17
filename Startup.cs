@@ -40,7 +40,7 @@ namespace BusinessDetailsEF
             services.AddSingleton<IAppointmentsAdapterInterface, AppointmentsAdapter>();
             services.AddCors(options =>
             options.AddPolicy(name: MyAllowSpecificOrigins,
-                builder => { builder.WithOrigins("https://appointo.netlify.app", "http://appointo.netlify.app")
+                builder => { builder.AllowAnyOrigin()
                     .AllowAnyHeader().AllowAnyMethod(); }));
             services.AddControllers();
         }
