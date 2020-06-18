@@ -55,9 +55,9 @@ namespace BusinessDetailsEF
 
             app.UseHttpsRedirection();
 
-            //app.UseRouting();
+            app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
