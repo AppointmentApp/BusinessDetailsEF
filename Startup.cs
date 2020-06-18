@@ -34,10 +34,11 @@ namespace BusinessDetailsEF
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IBusinessInterface, BusinessService>();
-            services.AddSingleton<IBusinessAdapterInterface, BusinessAdapter>();
-            services.AddSingleton<IAppointmentInterface, AppointmentsService>();
-            services.AddSingleton<IAppointmentsAdapterInterface, AppointmentsAdapter>();
+            
+            services.AddTransient<IBusinessInterface, BusinessService>();
+            services.AddTransient<IBusinessAdapterInterface, BusinessAdapter>();
+            services.AddTransient<IAppointmentInterface, AppointmentsService>();
+            services.AddTransient<IAppointmentsAdapterInterface, AppointmentsAdapter>();
             services.AddCors(options =>
             options.AddPolicy(name: MyAllowSpecificOrigins,
                 builder => { builder.AllowAnyOrigin()
