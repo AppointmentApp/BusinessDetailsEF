@@ -18,7 +18,7 @@ namespace BusinessDetailsEF.Models
         public string Business_Name { get; set; }
         public string Business_Type { get; set; }
         public string Address { get; set; }
-        public int Contact_Number { get; set; }
+        public long Contact_Number { get; set; }
         public string City { get; set; }
         public string State { get; set; }
 

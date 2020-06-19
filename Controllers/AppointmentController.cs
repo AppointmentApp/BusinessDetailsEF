@@ -5,7 +5,7 @@ using BusinessDetailsEF.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusinessDetailsEF.Controllers
-{
+{ 
     [Route("api/appointment")]
     [ApiController]
     public class AppointmentController : ControllerBase
@@ -50,7 +50,7 @@ namespace BusinessDetailsEF.Controllers
         }
         [Consumes("application/json")]
         [Produces("application/json")]
-        [HttpPost("addbusiness")]
+        [HttpPost("addappointment")]
         public async Task<IActionResult> addappointment([FromBody] AppointmentsEntity appointments)
         {
             try

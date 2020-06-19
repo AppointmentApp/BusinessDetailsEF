@@ -30,7 +30,7 @@ namespace BusinessDetailsEF.Service
         {
             var appointments = auc.Appointments.Where(p => p.appointmentId == id).Select(p => new AppointmentsEntity()
             {
-
+                AappointmentId=p.appointmentId,
                 AName = p.Name,
                 Aaddress = p.address,
                 Adate1 = p.date1,

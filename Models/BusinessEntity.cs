@@ -12,7 +12,7 @@ namespace BusinessDetailsEF.Models
         public string bname { get; set; }
         public string btype { get; set; }
         public string baddress { get; set; }
-        public int bcontactNumber { get; set; }
+        public long bcontactNumber { get; set; }
         public string bcity { get; set; }
         public string bstate { get; set; }
     }
