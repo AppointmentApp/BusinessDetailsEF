@@ -83,7 +83,7 @@ namespace BusinessDetailsEF.Service
         }
         public BusinessDetails deletebusiness(string btoken) 
         {
-            var business = db.BusinessDetails.Find(btoken);
+            var business = db.BusinessDetails.FirstOrDefault(item => item.BusinessToken == btoken); 
             db.BusinessDetails.Remove(business);
             db.SaveChanges();
             return (business);
