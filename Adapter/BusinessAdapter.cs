@@ -10,6 +10,7 @@ namespace BusinessDetailsEF.Adapter
 {
     public class BusinessAdapter:IBusinessAdapterInterface
     {
+        int businessid = 0;
         private IBusinessInterface _businessService;
         // BusinessService _businessService = new BusinessService();
         public BusinessAdapter(IBusinessInterface businessService) 
@@ -42,5 +43,15 @@ namespace BusinessDetailsEF.Adapter
             return business;
         }
 
+        public int getbid(string btoken)
+        {
+            int buid = 0;
+            var bid = _businessService.getbid(btoken);
+            foreach (var item in bid)
+            {
+                buid = item.bid;
+            }
+            return buid;
+        }
     }
 }

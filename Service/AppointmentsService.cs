@@ -9,8 +9,12 @@ namespace BusinessDetailsEF.Service
 {
     public class AppointmentsService:IAppointmentInterface
     {
+        IBusinessAdapterInterface _businessAdapterInterface;
         private appointo146updateContext auc = new appointo146updateContext();
-        public AppointmentsService() { }
+        public AppointmentsService(IBusinessAdapterInterface businessAdapterInterface) 
+        {
+            _businessAdapterInterface = businessAdapterInterface;
+        }
         public List<AppointmentsEntity> getall()
         {
             var appointments = auc.Appointments.Select(p => new AppointmentsEntity()
@@ -31,6 +35,23 @@ namespace BusinessDetailsEF.Service
             var appointments = auc.Appointments.Where(p => p.appointmentId == id).Select(p => new AppointmentsEntity()
             {
                 AappointmentId=p.appointmentId,
+                ABusiness_Id=p.Business_Id,
+                AName = p.Name,
+                Aaddress = p.address,
+                Adate1 = p.date1,
+                AtimeSlot = p.timeSlot,
+                AContact = p.Contact,
+                Astatus = p.status
+            }).ToList();
+            return (appointments);
+        }
+        public List<AppointmentsEntity> getbybid(string token)
+        {
+            var id = _businessAdapterInterface.getbid(token);
+            var appointments = auc.Appointments.Where(p => p.Business_Id== id).Select(p => new AppointmentsEntity()
+            {
+                AappointmentId = p.appointmentId,
+                ABusiness_Id = p.Business_Id,
                 AName = p.Name,
                 Aaddress = p.address,
                 Adate1 = p.date1,

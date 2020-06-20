@@ -92,5 +92,7 @@ namespace BusinessDetailsEF.Controllers
                 return BadRequest();
             }
         }
+
     }
+
 }

@@ -10,6 +10,7 @@ namespace BusinessDetailsEF.Interfaces
     {
         List<AppointmentsEntity> getall();
         List<AppointmentsEntity> getbyid(int id);
+        List<AppointmentsEntity> getbybid(string token);
         Appointments addappointments(AppointmentsEntity appointmentsEntity);
         Appointments updatestatus(AppointmentsEntity appentity, int id);
         Appointments deleteappointment(int id);

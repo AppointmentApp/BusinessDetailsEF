@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace BusinessDetailsEF.Service
 {
-    public class BusinessService:IBusinessInterface
+    public class BusinessService : IBusinessInterface
     {
         private appointo146updateContext db = new appointo146updateContext();
         public BusinessService() { }
-        public string Generateguid() 
+        public string Generateguid()
         {
             var token = Guid.NewGuid().ToString();
             //Guid guid = new Guid();
             //var token = guid.ToString();
             return token;
         }
-        public List<BusinessEntity> getall() 
+        public List<BusinessEntity> getall()
         {
-            
+
             var business = db.BusinessDetails.Select(p => new BusinessEntity()
             {
                 bid = p.Business_Id,
@@ -49,13 +49,13 @@ namespace BusinessDetailsEF.Service
             return (business);
         }
 
-        public BusinessDetails  addbusiness(BusinessEntity businessEntity)
+        public BusinessDetails addbusiness(BusinessEntity businessEntity)
         {
             var business = new BusinessDetails()
             {
                 BusinessToken = Generateguid(),
-            Business_Name = businessEntity.bname,
-                Business_Type = businessEntity.btype,   
+                Business_Name = businessEntity.bname,
+                Business_Type = businessEntity.btype,
                 Address = businessEntity.baddress,
                 Contact_Number = businessEntity.bcontactNumber,
                 City = businessEntity.bcity,
@@ -81,12 +81,20 @@ namespace BusinessDetailsEF.Service
             db.SaveChanges();
             return (bd);
         }
-        public BusinessDetails deletebusiness(string btoken) 
+        public BusinessDetails deletebusiness(string btoken)
         {
-            var business = db.BusinessDetails.FirstOrDefault(item => item.BusinessToken == btoken); 
+            var business = db.BusinessDetails.FirstOrDefault(item => item.BusinessToken == btoken);
             db.BusinessDetails.Remove(business);
             db.SaveChanges();
             return (business);
+        }
+        public List<BusinessEntity> getbid(string btoken)
+        {
+            var b_id = db.BusinessDetails.Where(p => p.BusinessToken == btoken).Select(p => new BusinessEntity()
+            {
+                bid = p.Business_Id
+            }).ToList();
+            return b_id;
         }
     }
 }

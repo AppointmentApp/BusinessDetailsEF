@@ -10,12 +10,15 @@ namespace BusinessDetailsEF.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
+        
         private IAppointmentsAdapterInterface _appointmentAdapter;
 
         public AppointmentController(IAppointmentsAdapterInterface appointmentAdapter)
         {
+          
             _appointmentAdapter = appointmentAdapter;
         }
+
        
         [Produces("application/json")]
         [HttpGet("findall")]
@@ -48,6 +51,23 @@ namespace BusinessDetailsEF.Controllers
                 return BadRequest();
             }
         }
+
+        [Produces("application/json")]
+        [HttpGet("findbybid/{token}")]
+        public async Task<IActionResult> findbybid( string token)
+        {
+            try
+            {
+                var appointments = _appointmentAdapter.getallappointmentbybid(token);
+
+                return Ok(appointments);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [Consumes("application/json")]
         [Produces("application/json")]
         [HttpPost("addappointment")]

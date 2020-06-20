@@ -27,7 +27,13 @@ namespace BusinessDetailsEF.Adapter
             var appointments = _appointmentService.getbyid(id);
             return appointments;
         }
-        public Appointments addappointments(AppointmentsEntity appointmentsEntity)
+
+        public List<AppointmentsEntity> getallappointmentbybid(string token)
+        {
+            var appointments = _appointmentService.getbybid(token);
+            return appointments;
+        }
+            public Appointments addappointments(AppointmentsEntity appointmentsEntity)
         {
             var appointments = _appointmentService.addappointments(appointmentsEntity);
             return appointments;
