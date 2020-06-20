@@ -28,9 +28,29 @@ namespace BusinessDetailsEF.Adapter
             return appointments;
         }
 
-        public List<AppointmentsEntity> getallappointmentbybid(string token)
+        public List<AppointmentsEntity> getallappointmentbybid(string token,DateTime dateTime)
         {
+            AppointmentsEntity appointmentsEntity = new AppointmentsEntity();
+            List<AppointmentsEntity>  appointmentlist=new List<AppointmentsEntity>();
             var appointments = _appointmentService.getbybid(token);
+            foreach (var item in appointments)
+            {
+                if (item.Adate1 == dateTime)
+                {
+                    appointmentsEntity.Aaddress = item.Aaddress;
+                    appointmentsEntity.AappointmentId = item.AappointmentId;
+                    appointmentsEntity.ABusiness_Id = item.ABusiness_Id;
+                    appointmentsEntity.AContact = item.AContact;
+                    appointmentsEntity.Adate1 = item.Adate1;
+                    appointmentsEntity.AName = item.AName;
+                    appointmentsEntity.Astatus = item.Astatus;
+                    appointmentsEntity.AtimeSlot = item.AtimeSlot;
+                }
+                else 
+                {
+                    Console.WriteLine("Date Not found!");
+                }
+            }appointmentlist.Add(appointmentsEntity);
             return appointments;
         }
             public Appointments addappointments(AppointmentsEntity appointmentsEntity)
@@ -49,5 +69,10 @@ namespace BusinessDetailsEF.Adapter
             return appointments;
         }
 
+        public List<AppointmentsEntity> getallappointmentbybid(string token)
+        {
+            var appointments = _appointmentService.getbybid(token);
+            return appointments;
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace BusinessDetailsEF.Service
                 ABusiness_Id = p.Business_Id,
                 AName = p.Name,
                 Aaddress = p.address,
-                Adate1 = p.date1,
+                Adate1= p.date1,
                 AtimeSlot = p.timeSlot,
                 AContact = p.Contact,
                 Astatus = p.status
@@ -66,9 +66,10 @@ namespace BusinessDetailsEF.Service
         {
             var appoints = new Appointments()
             {
+
                 Name = appointmentsEntity.AName,
                 address = appointmentsEntity.Aaddress,
-                date1 = appointmentsEntity.Adate1,
+                date1= appointmentsEntity.Adate1,
                 timeSlot = appointmentsEntity.AtimeSlot,
                 Contact = appointmentsEntity.AContact,
                 status = appointmentsEntity.Astatus

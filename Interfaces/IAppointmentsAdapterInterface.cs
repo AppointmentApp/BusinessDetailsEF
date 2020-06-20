@@ -11,6 +11,7 @@ namespace BusinessDetailsEF.Interfaces
         List<AppointmentsEntity> getallappointments();
         List<AppointmentsEntity> getallappointmentbyid(int id);
         List<AppointmentsEntity> getallappointmentbybid(string token);
+        List<AppointmentsEntity> getallappointmentbybid(string token, DateTime dateTime);
         Appointments addappointments(AppointmentsEntity appointmentsEntity);
         Appointments updatestatus(AppointmentsEntity appointmentEntity, int id);
         Appointments deleteappointment(int id);

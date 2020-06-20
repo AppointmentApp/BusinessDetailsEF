@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BusinessDetailsEF.Adapter;
 using BusinessDetailsEF.Interfaces;
 using BusinessDetailsEF.Models;
@@ -59,6 +60,22 @@ namespace BusinessDetailsEF.Controllers
             try
             {
                 var appointments = _appointmentAdapter.getallappointmentbybid(token);
+
+                return Ok(appointments);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [Produces("application/json")]
+        [HttpGet("findbydateandtoken/{token}/{dateTime}")]
+        public async Task<IActionResult> findbytokenanddate(string token, DateTime dateTime)
+        {
+            try
+            {
+                var appointments = _appointmentAdapter.getallappointmentbybid(token,dateTime);
 
                 return Ok(appointments);
             }
